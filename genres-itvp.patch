@@ -1,0 +1,35 @@
+diff -ur genres-0.9.2/doc/genres.conf genres-0.9.2-ah/doc/genres.conf
+--- genres-0.9.2/doc/genres.conf	2006-05-13 21:49:44.000000000 +0200
++++ genres-0.9.2-ah/doc/genres.conf	2006-06-24 01:39:15.000000000 +0200
+@@ -1,6 +1,6 @@
+ #common configuration file for GenRes plugin
+ #put it to ~/.mozilla/genres or /etc
+ 
+-mozillastreams=1 # use mozilla streams (and cache), 0 - not use
++mozillastreams=0 # use mozilla streams (and cache), 0 - not use
+ debuglevel=10    # full debug output, 0 - quiet
+ background=-1	 # 0 - black, 1 - white, -1 - mozilla default
+diff -ur genres-0.9.2/slaves/video/mplayer.pl genres-0.9.2-ah/slaves/video/mplayer.pl
+--- genres-0.9.2/slaves/video/mplayer.pl	2006-05-13 22:57:46.000000000 +0200
++++ genres-0.9.2-ah/slaves/video/mplayer.pl	2006-06-24 01:38:58.000000000 +0200
+@@ -30,8 +30,8 @@
+ ## Parameters from the config file ##
+ $conffile="$ENV{HOME}/.mozilla/genres/mplayer.conf";
+ %cfg=(
+-  vo=>[x11, 'text', "Video output driver (see mplayer -vo help)"],
+-  ao=>["esd,arts,oss,alsa", 'text', "Audio output driver (see mplayer -ao help)"],
++  vo=>["xv,x11", 'text', "Video output driver (see mplayer -vo help)"],
++  ao=>["alsa,esd,arts,oss,null", 'text', "Audio output driver (see mplayer -ao help)"],
+   not_ask=> [0, 'checkbox', "Never show file save dialog again."],
+   out_file=>['%@-%Y-%m-%d_%H-%M-%S.avi', 'file', "Write video to file(s)",
+      "%@  in the filename will be replaced to source URL\n"
+@@ -371,7 +371,8 @@
+ 		$sl2p=open(SL2W,$cmd2);
+ 	    } else {
+ 		$OPTS.=" -ao $cfg{ao}[0]" if $cfg{ao}[0];
+-		$cmd="mplayer $OPTS -vo $cfg{vo}[0] -zoom -nojoystick -slave -nomouseinput -cookies '$href'";
++		my $pls = ($href =~ /asx$/) ? "-playlist" : "";
++		$cmd="mplayer $OPTS -vo $cfg{vo}[0] -zoom -nojoystick -slave -nomouseinput -cookies $pls '$href'";
+ 	        print "cmd=$cmd\n";
+ 	        runslv $cmd;
+ 	    }
