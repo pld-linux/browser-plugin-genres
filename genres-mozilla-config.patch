@@ -6,7 +6,7 @@ diff -ur genres-0.9.2/Makefile genres-0.9.2-patch/Makefile
  RELEASE=$(shell awk -F '[()]' '/\(.*\)/ { print $$2; exit; }' <debian/changelog)
  PATH:=${PATH}:/usr/local/mozilla/bin:/usr/lib/mozilla/bin:/opt/mozilla/bin
 -CFLAGS= -Wall -Os -DXP_UNIX -DMOZ_X11 -DXTHREADS ` mozilla-config --cflags xpcom` -fPIC -DRELEASE="\"${RELEASE}\""
-+CFLAGS= -Wall -Os -DXP_UNIX -DMOZ_X11 -DXTHREADS -I/usr/include/mozilla-firefox/plugin -I/usr/include/nspr -I/usr/include/mozilla-firefox/java -I/usr/include/mozilla-firefox/xpcom -fPIC -DRELEASE="\"${RELEASE}\""
++CFLAGS= -Wall $(OPTFLAGS) -DXP_UNIX -DMOZ_X11 -DXTHREADS `pkg-config --cflags xulrunner-xpcom` -fPIC -DRELEASE="\"${RELEASE}\""
  OBJ=main_thread.o observer_thread.o threadqueue.o slavesdir.o storage.o settings.o
  INSTALL=install -Dp -g root -o root
  LIBPREFIX=$(DESTDIR)/usr/lib
