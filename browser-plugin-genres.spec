@@ -1,18 +1,20 @@
-# TODO: browser-plugins v2
+# TODO:
+# - browser-plugins v2
+# - port to xulrunner >= 1.9.0
 Summary:	GenReS browser scriptable plugin
 Summary(pl.UTF-8):	GenReS - skryptowalna wtyczka do przeglądarki
 Name:		browser-plugin-genres
-Version:	0.9.2
-Release:	1
+Version:	1.0.2
+Release:	0.1
 License:	GPL
 Group:		X11/Applications/Multimedia
 Source0:	http://download.savannah.nongnu.org/releases/genres/genres-%{version}.tar.bz2
-# Source0-md5:	795f62635a28caef2b75383bc6422c50
+# Source0-md5:	b18778368fd5f9889557ab98f4998dcd
 Patch0:		genres-mozilla-config.patch
 Patch1:		genres-itvp.patch
 URL:		https://savannah.nongnu.org/projects/genres
 BuildRequires:	pkgconfig
-BuildRequires:	xulrunner-devel
+BuildRequires:	xulrunner-devel < 1.9.0
 Requires:	perl-Gtk2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
