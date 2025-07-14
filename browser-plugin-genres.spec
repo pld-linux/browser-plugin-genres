@@ -48,8 +48,8 @@ mencodera i umożliwiający ich kontrolę z okna przeglądarki.
 
 %prep
 %setup -q -n genres-%{version}
-%patch0 -p1
-%patch1 -p1
+%patch -P0 -p1
+%patch -P1 -p1
 
 %build
 %{__make}
